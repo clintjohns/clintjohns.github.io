@@ -1,0 +1,50 @@
+<html>
+<body onload="setup()">
+<canvas id="drawingRegion" width=1200 height=500></canvas>
+<img id="goodluck" onmouseover="moveme()" src="shs.jpg" width=50>
+<p>Catch me if you can - limit randomization to a particular region</p>
+leftmost x (> 0): <textarea id="x1"></textarea>
+rightmost x (< 1200): <textarea id="x2"></textarea>
+lowest y (> 0): <textarea id="y1"></textarea>
+highest y (< 500): <textarea id="y2"></textarea>
+<button onclick="changeRegion()">reset</button>
+
+<script>
+	var x1, x2, y1, y2;
+	var surface = document.getElementById("drawingRegion").getContext("2d");
+	
+	function setup() {
+		//document.getElementById("drawingRegion").style.position="absolute";
+		//document.getElementById("drawingRegion").style.left=300;
+		//document.getElementById("drawingRegion").style.top=0;
+		document.getElementById("x1").value=200;
+		document.getElementById("x2").value=400;
+		document.getElementById("y1").value=100;
+		document.getElementById("y2").value=350;
+		changeRegion();
+		moveme();
+	}
+
+	function moveme() {
+		var pic = document.getElementById("goodluck");
+		pic.style.position="absolute";
+		pic.style.left=Math.floor(Math.random()*( x2 - x1 )) + x1;
+		pic.style.top=Math.floor(Math.random()*( y2 - y1 )) + y1;
+	}
+
+	function changeRegion() {
+		x1 = parseInt(document.getElementById("x1").value);
+		x2 = parseInt(document.getElementById("x2").value);
+		y1 = parseInt(document.getElementById("y1").value);
+		y2 = parseInt(document.getElementById("y2").value);
+
+		surface.beginPath();
+		surface.clearRect(0, 0, window.innerWidth, window.innerHeight);
+		surface.lineWidth="5";							// outline thickness
+		surface.strokeStyle="#000000";					// outline color, defined in RGB hex format
+		surface.rect(x1, y1, x2-x1, y2-y1);				// x, y, width, height
+		surface.stroke();								// enable outline
+		surface.endPath();
+	}
+</script>
+</html>

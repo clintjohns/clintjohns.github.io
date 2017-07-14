@@ -1,0 +1,90 @@
+<html>
+<body onload="startGame()">
+
+<canvas id="gameboard" width="1000" height="600" style="border:10px solid #00FF00;">
+    This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+
+<img id="gamePiece">
+
+<script>
+    // variables defined here (outside of functions) are called GLOBAL variables, and can be used in any function
+
+	// check for when the keyboard is pressed, use the function checkKey(e)
+	document.onkeydown = checkKey;
+
+    // get the name of the gameboard drawing surface / canvas
+    var surface = document.getElementById("gameboard").getContext("2d");
+
+    var red = "#FF0000";  		// RGB: 255, 0, 0  colorpicker.com ---> rgbtohex.net
+    var blue = "#0000FF"		//        0, 0, 255
+
+    var fontFormat = "bold 32pt Arial";
+
+    // where the main program resides
+    function startGame() {
+    	drawSquare(red, 100, 200, 50, 300);
+    	drawText("hello", blue, fontFormat, 920, 300);
+    	drawSquare(blue, 50, 50, 200, 10);
+    	drawText("try pressing the arrow keys", red, fontFormat, 400, 400);
+    	drawImage("myPicture.png", 100, 200, 50, 75);
+    }
+
+    function drawSquare(color, x, y, w, h)
+    {
+        surface.beginPath();
+        surface.fillStyle=color;
+        if (w!=null && h!=null) {
+        	surface.rect(x, y, w, h);        	
+        } else {
+	        surface.rect(x, y, 100, 100);
+    	}
+        surface.fill();
+        surface.closePath();
+    }
+
+    function drawText(msg, color, format, x, y) {
+    	if (typeof msg == "number") {
+    		msg = msg.toString();
+    	}
+    	surface.beginPath();
+    	surface.font = format;
+		surface.fillStyle = color;
+		surface.fillText(msg, x, y);
+		surface.closePath();
+    }
+
+    function drawImage(picture, x, y, w, h) {
+    	var myPicture = document.getElementById("gamePiece");
+		myPicture.src=picture;
+		myPicture.style.position="absolute";
+		myPicture.style.width=w;
+		myPicture.style.height=h;
+		myPicture.style.left=x;
+		myPicture.style.top=y;
+    }
+    
+    // map for all keyboard keys
+    // https://css-tricks.com/snippets/javascript/javascript-keycodes
+	function checkKey(e) {
+
+		e = e || window.event;
+
+		if (e.keyCode == '38') {
+			alert("up");
+		} else if (e.keyCode == '40') {
+			alert("down");
+		} else if (e.keyCode == '37') {
+			alert("left");
+		} else if (e.keyCode == '39') {
+			alert("right");
+		}
+	}
+
+    
+    
+
+</script>
+
+</body>
+</html>

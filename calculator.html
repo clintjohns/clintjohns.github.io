@@ -1,0 +1,33 @@
+<html>
+
+<h1>Calculator</h1>
+
+<textarea id="value1"></textarea>
+<br>
+<textarea id="value2"></textarea>
+<br>
+<button id="add" onclick="addEmUp()">Add</button>
+<button id="minus" onclick="minusEmUp()">Subtract</button>
+<br>
+<textarea id="answer"></textarea>
+
+<script>
+function addEmUp() {
+	var x = document.getElementById("value1").value;
+	var y = document.getElementById("value2").value;
+	var ans = parseInt(x) + parseInt(y);
+	document.getElementById("answer").value = ans;
+}
+function minusEmUp() {
+	var x = document.getElementById("value1").value;
+	var y = document.getElementById("value2").value;
+	var ans = parseInt(x) - parseInt(y);
+	document.getElementById("answer").value = ans;
+}
+</script>
+
+<h2>
+	<a href="restaurantBill.html">on to your homework assignment...</a>
+</h2>
+
+</html>

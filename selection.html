@@ -1,0 +1,74 @@
+<html>
+<body onload="setup()" onmousemove="moving(event)">
+<h1>Click on each object to move, and click again to release</h1>
+<img id="object1" onclick="pick1()" src="shs.jpg">
+<img id="object2" onclick="pick2()" src="stanford.png">
+<p id="info"></p>
+<script>
+	var mouseX;
+	var mouseY;
+	var selected = "none";
+	var thing1 = document.getElementById("object1");
+	var obj1X=0;
+	var obj1Y=100;
+	var thing2 = document.getElementById("object2");	
+	var obj2X=200;
+	var obj2Y=400;
+
+	function setup() {
+
+		thing1.style.position="absolute";
+		thing1.style.left=obj1X;
+		thing1.style.top=obj1Y;
+
+		thing2.style.position="absolute";
+		thing2.style.left=obj2X;
+		thing2.style.top=obj2Y;
+		document.getElementById("info").innerHTML="set object positions...done";
+	}
+
+	function pick1() {
+		if (selected=="none" || selected=="obj2") {
+			selected = "obj1";
+			document.getElementById("info").innerHTML="object 1 selected";
+			moveme();
+		} else {
+			selected = "none";
+			document.getElementById("info").innerHTML="no object selected";
+
+		}
+	}
+
+	function pick2() {
+		if (selected=="none" || selected=="obj1") {
+			selected = "obj2";
+			document.getElementById("info").innerHTML="object 2 selected";
+			moveme();
+		} else {
+			selected = "none";
+			document.getElementById("info").innerHTML="no object selected";
+		}
+	}
+
+	function moving(event) {
+		mouseX = event.clientX;
+		mouseY = event.clientY;
+
+		if (selected=="obj1") {
+			obj1X=mouseX;
+			obj1Y=mouseY;
+			document.getElementById("info").innerHTML="moving object 1";
+		} else if (selected=="obj2") {
+			obj2X=mouseX;
+			obj2Y=mouseY;
+			document.getElementById("info").innerHTML="moving object 2";
+		}
+
+		thing1.style.left=obj1X;
+		thing1.style.top=obj1Y;
+		thing2.style.left=obj2X;
+		thing2.style.top=obj2Y;
+	}
+
+</script>
+</html>

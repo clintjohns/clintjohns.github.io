@@ -1,0 +1,79 @@
+<html>
+
+<body onload="setup()" onmousemove="moving(event)">
+<p id="info">(0,0)</p>
+
+<img id="hoop" src="hoop.png">
+<img id="steph" src="steph.png">
+
+<audio id="soundEffect">
+  <source src="crowdCheering.ogg" type="audio/ogg">
+</audio>
+
+<canvas id="drawingArea" width=1400 height=900 style="border:0px solid #000000;">
+    This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+
+<script>
+var x=0;
+var y=0;
+var surface = document.getElementById("drawingArea").getContext("2d");
+
+function setup() {
+	//document.getElementById("info").innerHTML="("+x+","+y+")";
+	document.getElementById("info").innerHTML="";
+	document.getElementById("hoop").style.position="absolute";
+	document.getElementById("hoop").style.left=1000;
+	document.getElementById("hoop").style.top=200;
+	document.getElementById("steph").style.position="absolute";
+	document.getElementById("steph").style.left=x;
+	document.getElementById("steph").style.top=y;
+	document.getElementById("steph").width=200;
+	surface.width=window.innerWidth;
+	surface.height=window.innerHeight;
+	// show region for intersection event
+	// if (900 < x < 1000 and 200 < y < 250)
+	drawTargetBox();
+}
+
+function drawTargetBox() {
+	surface.beginPath();
+	surface.lineWidth="1";							// outline thickness
+	surface.strokeStyle="#FF0000";					// outline color, defined in RGB hex format
+	surface.rect(900, 200, 1000-900, 250-200);		// x, y, width, height
+	surface.stroke();								// enable outline
+	surface.endPath();
+}
+
+function moving(event) {
+	//drawTargetBox();
+	x = event.clientX;
+	y = event.clientY;
+	//document.getElementById("info").innerHTML="("+x+","+y+")";
+	document.getElementById("info").innerHTML="";
+	document.getElementById("steph").style.left=x;
+	document.getElementById("steph").style.top=y;
+
+	// if (900 < x < 1000 and 200 < y < 250)
+	if (x > 900 && x < 1000 && y > 200 && y < 250) {
+		// steph is going to dunk!!!
+		// change picture
+		document.getElementById("steph").src="steph2.png";
+		// play sound
+		var sound = document.getElementById("soundEffect");
+		sound.autoplay = true;
+		sound.load();
+	} else {
+		// reset to dribbling
+		document.getElementById("steph").src="steph.png";
+		// disable sound
+		var sound = document.getElementById("soundEffect");
+		sound.autoplay = false;
+		sound.load();
+	}
+}
+
+</script>
+
+</body>
+</html>

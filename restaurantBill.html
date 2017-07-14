@@ -1,0 +1,41 @@
+<html>
+
+<h1>Restaurant bill</h1>
+<h2>starter code to copy to your webfolder</h2>
+
+<p>Bill of items received</p>
+<textarea id="item1"></textarea>
+<br>
+<textarea id="item2"></textarea>
+<br>
+<textarea id="item3"></textarea>
+<br>
+<button id="totalBill" onclick="calculateBill()">Total (w/ 9.25% tax)</button>
+<br>
+Answer: <textarea id="answer"></textarea>
+<br>
+<hr>
+<br>
+<b><i>the NEW HOMEWORK</i></b><br>
+<textarea id="groupSize">How many people are in your party?</textarea>
+<br>
+<button id="individualBill" onclick="calculateMyBill()">Cost per Person</button>
+<br>
+Answer: <textarea id="answerEC"></textarea>
+
+<script>
+function calculateBill() {
+	var item1 = document.getElementById("item1").value;
+	var item2 = document.getElementById("item2").value;
+	var item3 = document.getElementById("item3").value;
+	var total = parseInt(item1)+parseInt(item2)+parseInt(item3);
+	total = 1.0925*total;
+	document.getElementById("answer").value=total;
+}
+
+function calculateMyBill() {
+
+}
+</script>
+
+</html>

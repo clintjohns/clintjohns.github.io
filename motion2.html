@@ -1,0 +1,77 @@
+<html>
+   
+   <body onload="init()">
+   
+
+      <img id="moveMe1" src="basketball.jpg" width=50>
+      <img id="moveMe2" src="basketball.jpg" width=50>
+      <img id="moveMe3" src="basketball.jpg" width=50>
+
+      <script>
+         var pic1 = document.getElementById('moveMe1');
+         var pic2 = document.getElementById('moveMe2');
+         var pic3 = document.getElementById('moveMe3');
+         var pos1 = 0;
+         var pos2 = 500;
+         var x = 0;
+         var y = 400;
+         // how long to run script (in milliseconds)
+         var id1 = setInterval(moveRight, 10);  // 10ms pause
+         var id2 = setInterval(moveLeft, 5);    // 5ms pause
+         var id3 = setInterval(moveArc, 5);    // 5ms pause
+
+         function init(){
+            pic1.style.position = 'relative'; 
+            pic1.style.left = 0;
+            pic1.style.top = 100;
+            pic2.style.position = 'relative'; 
+            pic2.style.left = 800;
+            pic2.style.top = 200;
+            pic3.style.position = 'relative'; 
+            pic3.style.left = 0;
+            pic3.style.top = 400;
+         }
+         
+         function moveRight() {
+            if (pos1 > 500) {
+               clearInterval(id1);
+            } else {
+               pos1+=1;
+               pic1.style.left = pos1;
+            }
+         }
+
+         function moveLeft() {
+            if (pos2 < 0) {
+               clearInterval(id2);
+            } else {
+               pos2-=1;
+               pic2.style.left = pos2;
+            }
+         }
+
+         function moveArc() {
+            // identify 3 coordinates you want the arc to go through
+            // www.wolframalpha.com
+            // search: parabola (x1,y1) (x2,y2) (x3,y3)
+            // copy resulting equation below
+            // -add multiplication * wherever it is implied but not written
+            // -convert all powers to multiplication, x^2 should be x*x
+            // -convert all integers to floating point, 600 -> 600.
+
+            if (x > 300) {
+               clearInterval(id3);
+            } else {
+               x+=1;
+               // parabola (0,400) (200,100) (300,300)
+               y = (7.*x*x)/600.-(23.*x)/6.+400.;
+               y = parseInt(y);
+               pic3.style.left = x;
+               pic3.style.top = y;
+            }
+         }
+
+      </script>
+
+   </body>
+</html>

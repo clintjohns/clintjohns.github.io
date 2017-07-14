@@ -1,0 +1,50 @@
+<html>
+<body onload="setup()">
+<h1>click on me</h1>
+<img id="player" src="kangaroo.jpg" height=50 onclick="initiateJump()">
+<p id="info"></p>
+<script>
+	var player = document.getElementById("player");
+	var ymax=100;
+	var ymin=200;
+	var playerY=ymin;
+	var direction="up";
+	var speed=2;		// how many pixels to move per frame
+	var timerPause=5;	// milliseconds
+	var id;
+
+	function setup() {
+		player.style.position="relative";
+		player.style.top=ymin;
+		player.style.left=100;
+		document.getElementById("info").innerHTML=playerY.toString()+" "+direction+" "+ymax.toString()+" "+ymin.toString();
+	}
+
+	function initiateJump() {
+		id = setInterval(jump,timerPause);
+	}
+
+	function jump() {
+		document.getElementById("info").innerHTML=playerY.toString()+" "+direction+" "+ymax.toString()+" "+ymin.toString();
+		if (direction=="up") {
+			if (playerY<ymax) {
+				direction="down";
+			} else {
+				playerY-=speed;
+			}
+		} else if (direction=="down") {
+			if (playerY>ymin) {
+				direction="up";
+				clearInterval(id);
+			} else {
+				playerY+=speed;
+			}
+		}
+		player.style.top=playerY;
+	}
+
+</script>
+
+
+</body>
+</html>

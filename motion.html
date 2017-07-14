@@ -1,0 +1,34 @@
+<html>
+   
+   <body onload="init()">
+   
+
+      <img id="moveMe" src="basketball.jpg" width=50>
+
+      <script>
+         var pic = document.getElementById('moveMe');
+         var pos = 0;
+         var id = setInterval(moveRight, 10);
+ 
+         function init(){
+            pic.style.position= 'relative'; 
+            pic.style.left = 0;
+            pic.style.top=100;
+            frame  
+         }
+         
+         function moveRight() {
+            if (pos > 300) {
+               //clearInterval(id);
+               pos=0;
+            } else {
+               pos+=1;
+            }
+            pic.style.left = pos;
+         }
+
+
+      </script>
+
+   </body>
+</html>

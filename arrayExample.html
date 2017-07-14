@@ -1,0 +1,47 @@
+<html>
+<body>
+	<p>check out the source code to see how to access information in an array</p>
+	<button onclick="test1()">splitting a word<br> in to a list</button>
+	<button onclick="test2()">start with a list,<br>and go through it one by one</button>
+	<button onclick="test3()">adding and removing<br>to and from a list</button>
+
+	<script>
+		// http://www.w3schools.com/jsref/jsref_obj_array.asp
+	function test1() {
+		window.alert("example 1");
+		var word = "abcxyz";
+		var temp = word.split("");
+		for (i=0; i<temp.length; i++) {
+			window.alert(temp[i]);
+		}
+	}
+
+	function test2() {
+		window.alert("example 2");
+		var myArray=[1,"a","Tuesday",3.14];
+
+		for (i=0; i<myArray.length; i++) {
+		  window.alert(myArray[i]);
+		}
+
+		window.alert("The 3rd item is: "+myArray[2]);
+	}
+
+	function test3() {
+		window.alert("example 3");
+		var data=[];
+		data.push("hi");
+		window.alert(data);
+		data.push("hello");
+		window.alert(data);
+		data.push("how are you?");
+		window.alert(data);
+		data.shift();
+		window.alert(data);
+		data.shift();
+		window.alert(data);
+	}
+	</script>
+
+</body>
+</html>

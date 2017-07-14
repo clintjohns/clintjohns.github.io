@@ -1,0 +1,74 @@
+<html>
+
+<script>
+function welcome() {
+	window.alert("Welcome to QuizBowl 2016");
+}
+
+function juniorEasy() {
+	document.getElementById("question").value="What is the junior color?";
+}
+
+function juniorHard() {
+	document.getElementById("question").value="How many students are in the junior class?";
+}
+
+function seniorEasy() {
+	document.getElementById("question").value="You wish you were a ...?";
+}
+
+function seniorHard() {
+	document.getElementById("question").value="When is graduation? (format: Feb 15)";
+}
+
+function checkAnswer() {
+	// what was the question?
+	var question=document.getElementById("question").value;
+
+	if (question=="What is the junior color?")	{
+		// this is the corresponding correct answer to that question
+		var answer ="blue";
+	}
+	
+	// check for the user's answer
+	var response=document.getElementById("answer").value;
+	if (response.toLowerCase()==answer) {
+		// you got it right
+		window.alert("Correct!");
+	} else  {
+		// you got it wrong
+		window.alert("Sorry, that is not correct.");
+	}
+}
+</script>
+
+
+<table border=1>
+	<tr>
+		<td><textarea id="answer">What is...?</textarea></td>
+		<td><img src="host.jpg" width=100 onclick="welcome()">click on me</td>
+	</tr>
+	<tr>
+		<td><button onclick="checkAnswer()">Check</button></td>
+		<td><textarea id="question">The question is...</textarea></td>
+	</tr>
+</table>
+
+<br>
+
+<table border=1>
+<tr>
+	<td><h1>Junior</h1></td>
+	<td><h1>Senior</h1></td>
+</tr>
+<tr>
+	<td><button onclick="juniorEasy()">easy</button></td>
+	<td><button onclick="seniorEasy()">easy</button></td>
+</tr>
+<tr>
+	<td><button onclick="juniorHard()">hard</button></td>
+	<td><button onclick="seniorHard()">hard</button></td>
+</tr>
+</table>
+
+</html>

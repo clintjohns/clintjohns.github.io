@@ -1,0 +1,33 @@
+<html>
+<body onload="setup()">
+
+<img id="rotateMe">
+<button onclick="rotate()">next image</button>
+
+<script>
+	var images=["1.png", "2.jpg", "3.png"];
+	var thisPic = document.getElementById("rotateMe");
+	
+	function setup() {
+		thisPic.src = images[0];
+	}
+
+	function rotate() {
+		//alert(thisPic.src);
+		// retrieve full file name and path
+		var fileName = thisPic.src;
+		// extract file name only
+		var fileName = fileName.substr(fileName.lastIndexOf("/") + 1);
+		//alert(fileName)
+		if (fileName==images[0]) {
+			thisPic.src=images[1];
+		} else if (fileName==images[1]) {
+			thisPic.src=images[2];
+		} else {
+			thisPic.src=images[0];
+		}
+	}
+
+</script>
+</body>
+</html>

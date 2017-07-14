@@ -1,0 +1,47 @@
+<html>
+
+<body onmousemove="moving(event)">
+<p id="info">(0,0)</p>
+
+<img id="hoop" src="hoop.png">
+<img id="steph" src="steph.png">
+
+<audio id="soundEffect">
+  <source src="crowdCheering.ogg" type="audio/ogg">
+</audio>
+
+<script>
+var x=0;
+var y=0;
+
+function moving(event) {
+	x = event.clientX;
+	y = event.clientY;
+	document.getElementById("info").innerHTML="("+x+","+y+")";
+	document.getElementById("hoop").style.position="absolute";
+	document.getElementById("hoop").style.left=1000;
+	document.getElementById("hoop").style.top=200;
+	document.getElementById("steph").style.position="absolute";
+	document.getElementById("steph").style.left=x;
+	document.getElementById("steph").style.top=y;
+	document.getElementById("steph").width=200;
+
+	// if (900 < x < 1000 and 200 < y < 250)
+	if (x > 900 && x < 1000 && y > 200 && y < 250) {
+		// steph is going to dunk!!!
+		// change picture
+		document.getElementById("steph").src="steph2.png";
+		// play sound
+		var sound = document.getElementById("soundEffect");
+		sound.autoplay = true;
+		sound.load();
+	} else {
+		// reset to dribbling
+		document.getElementById("steph").src="steph.png";
+	}
+}
+
+</script>
+
+</body>
+</html>

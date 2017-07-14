@@ -1,0 +1,41 @@
+<html>
+<head>
+	<title>CS2 - Spring 2016</title>
+</head>
+
+<body onload="toggleRoster()">
+	<h1>CS2 - Spring 2016</h1>
+	<h2>Students</h2>
+
+	<button onclick="toggleRoster()" id="myButton">Show Roster</button>
+	<p id="myList">
+		<!-- By Default, hide the roster-->
+	</p>
+
+<script>
+	function toggleRoster() {
+
+		var students=["benb","alexb","theoc","julianac","emmac","oscard","alexh","jackh","schaferk","kyleek","johnl","sloanem","henrym","erikm","sabrinan","daniels","joshuas"];
+	
+		var classList = "<ul>\n";
+		for (var i=0; i<students.length; i++) {
+			classList += "<li><a href=\"../../"+students[i]+"/\">"+students[i]+"</a></li>\n";
+		}
+		classList += "</ul>\n";
+
+		if (document.getElementById("myButton").innerHTML=="Show Roster") {
+
+			document.getElementById("myButton").innerHTML="Hide Roster";
+			document.getElementById("myList").innerHTML = classList;
+
+		} else {
+			document.getElementById("myButton").innerHTML="Show Roster";
+			document.getElementById("myList").innerHTML="";
+			
+		}
+
+	}
+</script>
+	
+</body>
+</html>

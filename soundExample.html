@@ -1,0 +1,23 @@
+<html>
+
+<audio id="applause">
+  <source src="applause.ogg" type="audio/ogg">
+</audio>
+
+there is a hidden, embedded sound object on this page
+<br>
+click the button below to cause the sound to play (via javascript)
+<br>
+<button onclick="test()">test</button>
+
+
+<script>
+function test()
+{
+	var sound = document.getElementById("applause");
+	sound.autoplay = true;
+	sound.load();
+}
+</script>
+
+</html>

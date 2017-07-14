@@ -1,0 +1,23 @@
+<html>
+
+<body onmousemove="moving(event)">
+<p id="info">(0,0)</p>
+<img id="thingy" src="shs.jpg">
+
+<script>
+var x=0;
+var y=0;
+
+function moving(event) {
+	x = event.clientX;
+	y = event.clientY;
+	document.getElementById("info").innerHTML="("+x+","+y+")";
+	document.getElementById("thingy").style.position="absolute";
+	document.getElementById("thingy").style.left=x;
+	document.getElementById("thingy").style.top=y;
+}
+
+</script>
+
+</body>
+</html>

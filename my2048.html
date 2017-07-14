@@ -1,0 +1,531 @@
+<html>
+<body onload="play2048()">
+
+<canvas id="gameboard" width="450" height="470" style="border:10px solid #FFFFFF;">
+    This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+
+
+<script>
+    // variables defined here (outside of functions) are called GLOBAL variables, and can be used in any function
+
+
+	// check for when the keyboard is pressed, use the function checkKey(e)
+	document.onkeydown = checkKey;
+
+	/* keep track of the numbers in all 16 positions of the grid
+     0  |  1  |  2  |  3
+    ---------------------
+	 4  |  5  |  6  |  7
+    ---------------------
+     8  |  9  |  10 |  11
+    ---------------------
+     12 |  13 |  14 |  15
+	*/
+    var squares = [];
+
+    // get the name of the gameboard drawing surface / canvas
+    var surface = document.getElementById("gameboard").getContext("2d");
+
+    // dimensions of gameboard
+    var WIDTH = 450;
+    var HEIGHT = 450;
+
+    // colors
+    // RGB: Red, Green, Blue
+    // http://www.colorpicker.com ---> http://www.rgbtohex.net/
+    var darkGrey = "#BBADA0";  		// 187, 173, 160
+    var lightGrey = "#C7B9AE";   	// 199, 185, 174    
+    var white = "#FFFFFF";          // 255, 255, 255
+    var black = "#000000";          // 0, 0, 0
+    var red = "#FF0000";			// 255, 0, 0
+
+    var tile2 = "#EEE4DA";          // 238, 228, 218
+    var tile4 = "#E7E0C6";          // 231, 224, 198
+    var tile8 = "#F3B27A";          // 243, 178, 122
+    var tile16 = "#F39863";         // 243, 152, 99
+    var tile32 = "#F37856";         // 243, 120, 86
+    var tile64 = "#F15735";         // 241, 87, 53
+    var tile128 = "#E7C86B";        // 231, 200, 107
+    var tile256 = "#EDCC61";        // 237, 204, 97
+    var tile512 = "#EDC951";        // 237, 201, 81
+    var tile1024 = "#ECC448";       // 236, 196, 72
+    var tile2048 = "#EEC134";       // 238, 193, 52
+    var tileOther = black;
+
+
+
+    // where the main program resides
+    function play2048() {
+        /* set up all 16 positions with a default value
+        
+         0  |  1  |  2  |  3
+        ---------------------
+		 4  |  5  |  6  |  7
+        ---------------------
+         8  |  9  |  10 |  11
+        ---------------------
+         12 |  13 |  14 |  15
+		
+		*/
+
+        // fill squares with blanks
+        for (i=0; i<16; i++) {
+            squares[i]=0;
+        }
+        
+        // draw grid background
+        initScene();
+        // add 1st tile - 90% of the time it is a 2, 10% of the time it is a 4
+        addNewTile();
+        // display this tile (and all others that will be added later), including its value, associated color and font size, and its location     
+        drawTiles();
+
+        // rest of the game logic
+        // after the 1st tile is added, the rest is controlled by the up(), down(), left(), and right()  (lots of looping through arrays)
+        // after a move, a new tile is added in a randomized location - 90% of the time it is a 2, 10% of the time it is a 4
+        // if there are no remaining spaces to use, then game over triggers a popup along with disabling the keyboard        
+    }
+
+    function initScene() {
+        drawSquare(darkGrey,0,0,WIDTH,HEIGHT);
+        
+        for (x = 10; x < WIDTH; x+=110)
+        {
+            for (y = 10; y < HEIGHT; y+=110)
+            {
+            	drawSquare(lightGrey,x,y);
+            }
+        }
+    }
+
+	function pause(ms) {
+		ms += new Date().getTime();
+		while (new Date() < ms){}
+	} 
+
+    function drawSquare(color, x, y, w, h)
+    {
+        surface.beginPath();
+        surface.fillStyle=color;
+        if (w!=null && h!=null) {
+        	surface.rect(x, y, w, h);        	
+        } else {
+	        surface.rect(x, y, 100, 100);
+    	}
+        surface.fill();
+        surface.closePath();
+    }
+
+    function drawText(msg, color, format, x, y) {
+    	if (typeof msg == "number") {
+    		msg = msg.toString();
+    	}
+    	surface.beginPath();
+    	surface.font = format;
+		surface.fillStyle = color;
+		surface.fillText(msg, x, y);
+		surface.closePath();
+    }
+
+    function tile(num, x, y)
+    {    
+        // set square color
+        if (num==0) { 
+            return;
+        } else {
+	        if (num==2) { drawSquare(tile2,x,y); }
+	        if (num==4) { drawSquare(tile4,x,y); }
+	        if (num==8) { drawSquare(tile8,x,y); }
+	        if (num==16) { drawSquare(tile16,x,y); }
+	        if (num==32) { drawSquare(tile32,x,y); }
+	        if (num==64) { drawSquare(tile64,x,y); }
+	        if (num==128) { drawSquare(tile128,x,y); }
+	        if (num==256) { drawSquare(tile256,x,y); }
+	        if (num==512) { drawSquare(tile512,x,y); }
+	        if (num==1024) { drawSquare(tile1024,x,y); }
+	        if (num==2048) { drawSquare(tile2048,x,y); }
+	        if (num>2048) { drawSquare(tileOther,x,y); }
+	        
+	        // set number color and size
+	        var color;
+	        var format;
+	        if (num<=4) { color = darkGrey; }
+	        if (num>4) { color = white; }
+
+	        if (num < 10000 && num >= 1000)
+	        {
+	            format = "bold 32pt Arial";
+	            x+=2;
+	            y+=65;
+	        }
+	        else if (num < 1000 && num >= 100)
+	        {
+	        	format = "bold 42pt Arial";
+	            x+=2;
+	            y+=72;
+	        }
+	        else if (num < 100 && num >= 10)
+	        {
+	            format = "bold 60pt Arial";
+	            x+=5;
+	            y+=80;
+	        }
+	        else if (num < 10)
+	        {
+	            format = "bold 80pt Arial";
+	            x+=20;
+	            y+=88;
+	        }
+			
+			drawText(num, color, format, x, y);
+			
+    	}
+    }
+
+    function drawTiles()
+    {
+        for (i=0; i<16; i++)
+        {
+            if (i==0 ) { tile(squares[i],10,10); }
+            if (i==1 ) { tile(squares[i],120,10); }
+            if (i==2 ) { tile(squares[i],230,10); }
+            if (i==3 ) { tile(squares[i],340,10); }
+            if (i==4 ) { tile(squares[i],10,120); }
+            if (i==5 ) { tile(squares[i],120,120); }
+            if (i==6 ) { tile(squares[i],230,120); }
+            if (i==7 ) { tile(squares[i],340,120); }
+            if (i==8 ) { tile(squares[i],10,230); }
+            if (i==9 ) { tile(squares[i],120,230); }
+            if (i==10 ) { tile(squares[i],230,230); }
+            if (i==11 ) { tile(squares[i],340,230); }
+            if (i==12 ) { tile(squares[i],10,340); }
+            if (i==13 ) { tile(squares[i],120,340); }
+            if (i==14 ) { tile(squares[i],230,340); }
+            if (i==15 ) { tile(squares[i],340,340); }
+        }
+    }
+	
+    function addNewTile() {
+        // check to see if there are any available tiles, or if the game is over
+        var theresRoom=false;
+        for (i=0; i<16; i++)
+        {
+            if (squares[i]==0) { theresRoom=true; }
+        }
+
+        if (theresRoom)
+        {
+            // 90% chance of 2, 10% chance of 4
+            var value;
+            if (Math.random()<0.9) { 
+            	value=2; }
+            else { 
+            	value=4; 
+            }
+
+            // find a tile that is empty
+            var location = Math.floor(Math.floor(Math.random()*15.999));
+            while (squares[location] != 0) { 
+            	location = Math.floor(Math.floor(Math.random()*15.999)); 
+            }
+
+            // location identified, fill with a 2 or 4
+            squares[location]=value;
+
+            // update grid on screen
+            initScene();
+            drawTiles();
+        }
+        else
+        {
+        	// no available space to fill
+            pause(1000);
+            initScene();
+            drawText("GAME",red,"bold 64pt Arial",95,200);
+            drawText("OVER",red,"bold 64pt Arial",100,300);
+
+            // disable arrow keys
+            document.onkeydown="";
+        }
+    }
+    
+
+	function checkKey(e) {
+
+		e = e || window.event;
+
+		if (e.keyCode == '38') {
+			up();
+		} else if (e.keyCode == '40') {
+			down();
+		} else if (e.keyCode == '37') {
+			left();
+		} else if (e.keyCode == '39') {
+			right();
+		}
+	}
+
+    
+    function up() {
+        for (k=0; k<=2; k++) // run 3 times
+        {
+            for (j=0; j<=2; j++) // check top 3 rows
+            {
+                for (i=j*4; i<=j*4+3; i++) // scan across 4 columns
+                {
+                    if (squares[i]==0) // if there is an empty hole, move everything below up
+                    {
+                        if (j==0)
+                        {
+                            squares[i]=squares[i+4];
+                            squares[i+4]=squares[i+8]; 
+                            squares[i+8]=squares[i+12]; 
+                            squares[i+12]=0;
+                        }
+                        if (j==1)
+                        {
+                            squares[i]=squares[i+4];
+                            squares[i+4]=squares[i+8]; 
+                            squares[i+8]=0;
+                        }
+                        if (j==2)
+                        {
+                            squares[i]=squares[i+4];
+                            squares[i+4]=0;
+                        }
+                    }
+                }
+            }
+        }
+        for (k=0; k<1; k++) // run 1 time
+        {
+            for (j=0; j<=2; j++) // check top 3 rows
+            {
+                for (i=j*4; i<=j*4+3; i++) // scan across 4 columns
+                {
+                    if (squares[i]!=0 && squares[i]==squares[i+4]) // if the square immediately below is the same as the current square, double and move everything below up
+                    {
+                        if (j==0)
+                        {
+                            squares[i]*=2;
+                            squares[i+4]=squares[i+8]; 
+                            squares[i+8]=squares[i+12]; 
+                            squares[i+12]=0;
+                        }
+                        if (j==1)
+                        {
+                            squares[i]*=2;
+                            squares[i+4]=squares[i+8]; 
+                            squares[i+8]=0;
+                        }
+                        if (j==2)
+                        {
+                            squares[i]*=2;
+                            squares[i+4]=0;
+                        }
+                    }
+                }
+            }
+        }
+        addNewTile();
+    }
+	
+    function down() {
+        for (k=0; k<=2; k++) // run 3 times
+        {
+            for (j=3; j>=1; j--) // check bottom 3 rows
+            {
+                for (i=j*4; i<=j*4+3; i++) // scan across 4 columns
+                {
+                    if (squares[i]==0) // if there is an empty hole, move everything above down
+                    {
+                        if (j==3)
+                        {
+                            squares[i]=squares[i-4];
+                            squares[i-4]=squares[i-8]; 
+                            squares[i-8]=squares[i-12]; 
+                            squares[i-12]=0;
+                        }
+                        if (j==2)
+                        {
+                            squares[i]=squares[i-4];
+                            squares[i-4]=squares[i-8]; 
+                            squares[i-8]=0;
+                        }
+                        if (j==1)
+                        {
+                            squares[i]=squares[i-4];
+                            squares[i-4]=0;
+                        }
+                    }
+                }
+            }
+        }
+        for (k=0; k<1; k++) // run 1 time
+        {
+            for (j=3; j>=1; j--) // check bottom 3 rows
+            {
+                for (i=j*4; i<=j*4+3; i++) // scan across 4 columns
+                {
+                    if (squares[i]!=0 && squares[i]==squares[i-4]) // if the square immediately above is the same as the current square, double and move everything above down
+                    {
+                        if (j==3)
+                        {
+                            squares[i]*=2;
+                            squares[i-4]=squares[i-8]; 
+                            squares[i-8]=squares[i-12]; 
+                            squares[i-12]=0;
+                        }
+                        if (j==2)
+                        {
+                            squares[i]*=2;
+                            squares[i-4]=squares[i-8]; 
+                            squares[i-8]=0;
+                        }
+                        if (j==1)
+                        {
+                            squares[i]*=2;
+                            squares[i-4]=0;
+                        }
+                    }
+                }
+            }
+        }
+        addNewTile();
+    }
+
+
+	function right() {
+        for (k=0; k<=2; k++) // run 3 times
+        {
+            for (j=3; j>=1; j--) // check right 3 columns
+            {
+                for (i=j; i<=j+12; i+=4) // scan across 4 rows
+                {
+                    if (squares[i]==0) // if there is an empty hole, move everything to the left, to the right
+                    {
+                        if (j==3)
+                        {
+                            squares[i]=squares[i-1];
+                            squares[i-1]=squares[i-2]; 
+                            squares[i-2]=squares[i-3]; 
+                            squares[i-3]=0;
+                        }
+                        if (j==2)
+                        {
+                            squares[i]=squares[i-1];
+                            squares[i-1]=squares[i-2]; 
+                            squares[i-2]=0;
+                        }
+                        if (j==1)
+                        {
+                            squares[i]=squares[i-1];
+                            squares[i-1]=0;
+                        }
+                    }
+                }
+            }
+        }
+        for (k=0; k<1; k++) // run 1 time
+        {
+            for (j=3; j>=1; j--) // check right 3 columns
+            {
+                for (i=j; i<=j+12; i+=4) // scan across 4 rows
+                {
+                    if (squares[i]!=0 && squares[i]==squares[i-1]) // if 2 adjacent squares are the same value, double the right one and move everything to the left, to the right
+                    {
+                        if (j==3)
+                        {
+                            squares[i]*=2;
+                            squares[i-1]=squares[i-2]; 
+                            squares[i-2]=squares[i-3]; 
+                            squares[i-3]=0;
+                        }
+                        if (j==2)
+                        {
+                            squares[i]*=2;
+                            squares[i-1]=squares[i-2]; 
+                            squares[i-2]=0;
+                        }
+                        if (j==1)
+                        {
+                            squares[i]*=2;
+                            squares[i-1]=0;
+                        }
+                    }
+                }
+            }
+        }
+        addNewTile();
+    }
+
+
+    function left() {
+        for (k=0; k<=2; k++) // run 3 times
+        {
+            for (j=0; j<=2; j++) // check left 3 columns
+            {
+                for (i=j; i<=j+12; i+=4) // scan across 4 rows
+                {
+                    if (squares[i]==0) // if there is an empty hole, move everything to the right, to the left
+                    {
+                        if (j==0)
+                        {
+                            squares[i]=squares[i+1];
+                            squares[i+1]=squares[i+2]; 
+                            squares[i+2]=squares[i+3]; 
+                            squares[i+3]=0;
+                        }
+                        if (j==1)
+                        {
+                            squares[i]=squares[i+1];
+                            squares[i+1]=squares[i+2]; 
+                            squares[i+2]=0;
+                        }
+                        if (j==2)
+                        {
+                            squares[i]=squares[i+1];
+                            squares[i+1]=0;
+                        }
+                    }
+                }
+            }
+        }
+        for (k=0; k<1; k++) // run 1 time
+        {
+            for (j=0; j<=2; j++) // check left 3 columns
+            {
+                for (i=j; i<=j+12; i+=4) // scan across 4 rows
+                {
+                    if (squares[i]!=0 && squares[i]==squares[i+1]) // if there are adjacent squares with the same value, double the left one, and move everything to the right, to the left
+                    {
+                        if (j==0)
+                        {
+                            squares[i]*=2;
+                            squares[i+1]=squares[i+2]; 
+                            squares[i+2]=squares[i+3]; 
+                            squares[i+3]=0;
+                        }
+                        if (j==1)
+                        {
+                            squares[i]*=2;
+                            squares[i+1]=squares[i+2]; 
+                            squares[i+2]=0;
+                        }
+                        if (j==2)
+                        {
+                            squares[i]*=2;
+                            squares[i+1]=0;
+                        }
+                    }
+                }
+            }
+        }
+        addNewTile();
+    }
+
+</script>
+
+</body>
+</html>

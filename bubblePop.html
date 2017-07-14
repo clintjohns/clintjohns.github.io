@@ -1,0 +1,66 @@
+<html>
+
+<body onload="showBubbles()">
+
+<audio id="pop">
+  <source src="pop.ogg" type="audio/ogg">
+</audio>
+
+<img id="bubble1" src="bubble.jpg">
+<img id="bubble2" src="bubble.jpg">
+<img id="bubble3" src="bubble.jpg">
+<img id="bubble4" src="bubble.jpg">
+<img id="bubble5" src="bubble.jpg">
+<img id="bubble6" src="bubble.jpg">
+<img id="bubble7" src="bubble.jpg">
+<img id="bubble8" src="bubble.jpg">
+<img id="bubble9" src="bubble.jpg">
+<img id="bubble10" src="bubble.jpg">
+<img id="bubble11" src="bubble.jpg">
+<img id="bubble12" src="bubble.jpg">
+<img id="bubble13" src="bubble.jpg">
+<img id="bubble14" src="bubble.jpg">
+<img id="bubble15" src="bubble.jpg">
+<img id="bubble16" src="bubble.jpg">
+<img id="bubble17" src="bubble.jpg">
+<img id="bubble18" src="bubble.jpg">
+<img id="bubble19" src="bubble.jpg">
+<img id="bubble20" src="bubble.jpg">
+<img id="bubble21" src="bubble.jpg">
+<img id="bubble22" src="bubble.jpg">
+<img id="bubble23" src="bubble.jpg">
+<img id="bubble24" src="bubble.jpg">
+<img id="bubble25" src="bubble.jpg">
+
+<script>
+	function showBubbles() {
+		var counter=0;
+		var numBubbles=25;
+		var bubbleSize=50;
+
+		for (var x = 0; x < bubbleSize*5; x += bubbleSize) {
+			for (var y = 0; y < bubbleSize*5; y += bubbleSize) {
+				counter+=1;
+				var d = document.getElementById("bubble"+counter.toString());
+				d.style.position = "absolute";
+				d.style.left = x;
+				d.style.top = y;
+				d.width = bubbleSize;
+				d.height = bubbleSize;
+				d.onmouseover = burst;
+			}
+		}
+	}
+
+	function burst() {
+		this.style.visibility="hidden";
+		var sound = document.getElementById("pop");
+		sound.autoplay = true;
+		sound.load();
+	}
+
+</script>
+
+
+</body>
+</html>

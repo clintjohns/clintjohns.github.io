@@ -1,0 +1,139 @@
+
+<html>
+
+    <head>
+        <title>Drawing & Animation</title>
+    </head>
+
+    <body onload="setup()">
+
+		<button id="down" onclick="down()">down</button>
+		<button id="right" onclick="right()">right</button>
+		Coordinates: (<b id="x"></b>,<b id="y"></b>)
+		<br/>
+		<i>try using the arrow keys too</i>
+		<br/>
+		<img id="logo" src="shs.jpg"/>
+		<canvas id="canvas1" width="500" height="500" style="border:1px solid #d3d3d3;">
+            This text is displayed if your browser does not support HTML5 Canvas.
+        </canvas>
+
+		<script>
+			// http://stackoverflow.com/questions/5597060/detecting-arrow-key-presses-in-javascript
+			document.onkeydown = checkKey;		// check for when the keyboard is pressed
+			
+			function checkKey(e) {
+
+				e = e || window.event;
+
+				if (e.keyCode == '38') {
+					// up arrow
+					up();
+				}
+				else if (e.keyCode == '40') {
+					// down arrow
+					down();
+				}
+				else if (e.keyCode == '37') {
+				   // left arrow
+				   left();
+				}
+				else if (e.keyCode == '39') {
+				   // right arrow
+				   right();
+				}
+
+			}
+		
+			function setup(){
+				document.getElementById("x").innerHTML=0;
+				document.getElementById("y").innerHTML=0;
+				drawBackgroundGrid();
+				drawRect();
+			}
+			var surface = document.getElementById("canvas1").getContext("2d");
+			var move=10;
+
+			function drawBackgroundGrid(){
+				surface.beginPath();						// draw a white background
+				surface.fillStyle="white";					// fill color
+				var width = canvas1.width;					// get canvas width
+				var height = canvas1.height;				// get canvas height
+				surface.rect(0,0,width,height);				// draw rectangle
+				surface.fill();								// fill in rectangle
+				surface.closePath();
+				
+				surface.beginPath();						// draw a grid
+				var size = 50;								// define grid size
+				for (var x=0; x<500; x+=size){				// loop horizontally
+					for (var y=0; y<500; y+=size){			// loop vertically
+						surface.lineWidth="1";				// outline thickness
+						surface.strokeStyle="#CFCFCF";		// outline color, defined in RGB hex format
+						surface.rect(x, y, size, size);		// x, y, width, height
+						surface.stroke();					// enable outline
+					}
+				}
+				surface.closePath();
+			}
+			
+			function drawRect() {
+				drawBackgroundGrid();
+				var x=document.getElementById("x").innerHTML;	// get current x position
+				var y=document.getElementById("y").innerHTML;	// get current y position
+				x=Number(x);
+				y=Number(y);
+				surface.beginPath();
+				surface.lineWidth="5";						// outline thickness
+				surface.strokeStyle="#930123";				// outline color
+				surface.fillStyle="#E2E2E2";				// fill color (represented in R-G-B hex format)
+				surface.rect(x, y, 150, 150);				// x, y, width, height
+				surface.stroke();							// enable outline
+				surface.fill();								// enable fill
+				surface.closePath();
+				
+				//document.getElementById("logo").style.src="shs.jpg";
+				document.getElementById("logo").style.position="absolute";
+				document.getElementById("logo").style.width="100px";
+				document.getElementById("logo").style.left=x+35;
+				document.getElementById("logo").style.top=y+75;
+			}
+			
+			function down() {
+				var y=document.getElementById("y").innerHTML;	// obtain current position
+				y=Number(y);								// convert to a number
+				if (y<500-150) {
+					y+=move;									// increment/decrement
+					document.getElementById("y").innerHTML=y;	// update current position
+					drawRect();									// draw rectangle at current position
+				}
+			}
+			
+			function up() {
+				var y=document.getElementById("y").innerHTML;	// obtain current position
+				y=Number(y);								// convert to a number
+				y-=move;									// increment/decrement
+				document.getElementById("y").innerHTML=y;	// update current position
+				drawRect();									// draw rectangle at current position
+			}
+
+			function right() {
+				var x=document.getElementById("x").innerHTML;	// obtain current position
+				x=Number(x);								// convert to a number
+				x+=move;									// increment/decrement
+				document.getElementById("x").innerHTML=x;	// update current position
+				drawRect();									// draw rectangle at current position
+			}
+
+			function left() {
+				var x=document.getElementById("x").innerHTML;	// obtain current position
+				x=Number(x);								// convert to a number
+				x-=move;									// increment/decrement
+				document.getElementById("x").innerHTML=x;	// update current position
+				drawRect();									// draw rectangle at current position
+			}
+
+		</script> 
+		
+	</body>
+
+</html>

@@ -1,0 +1,16 @@
+<html>
+<body>
+<h1>Catch me if you can</h1>
+<img id="goodluck" onmouseover="moveme()" src="shs.jpg">
+
+<script>
+
+	function moveme() {
+		var pic = document.getElementById("goodluck");
+		pic.style.position="absolute";
+		pic.style.left=Math.floor(Math.random()*window.innerWidth);
+		pic.style.top=Math.floor(Math.random()*window.innerHeight);
+	}
+
+</script>
+</html>

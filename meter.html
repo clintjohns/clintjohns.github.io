@@ -1,0 +1,64 @@
+<html>
+<body onload="start()">
+<canvas id="gameboard" width="1000" height="600" style="border:2px solid #000000;">
+    This text is displayed if your browser does not support HTML5 Canvas.
+</canvas>
+
+
+<script>
+	var surface = document.getElementById("gameboard").getContext("2d");
+	var offsetX=100;
+	var offsetY=50;
+	var barX = offsetX;
+	var barY = offsetY+75;
+	var barWidth = 25;
+	var barHeight = 2;
+	var delta = 1;
+	var id1 = setInterval(moveBar, 5);  // 10ms pause
+
+	function start() {
+
+		drawRect("#FF0000",offsetX,offsetY,400,50);
+		drawRect("#00FF00",offsetX+150,offsetY,100,50);
+		// for more information: 
+		// http://www.w3schools.com/js/default.asp
+		// specifically, border styles: http://www.w3schools.com/css/css_border.asp
+	}
+
+	function drawRect(color, x, y, w, h)
+    {
+        surface.beginPath();
+        surface.fillStyle=color;
+    	surface.rect(x, y, w, h);
+        surface.fill();
+        surface.closePath();
+    }
+
+    function erase(x, y, w, h) {
+        surface.beginPath();
+        surface.clearRect(x, y, w, h);        	
+        surface.closePath();	
+    }
+
+	function moveBar() {
+		// disable motion
+		// clearInterval(id1);
+
+		// remove old position
+		erase(barX,barY,barWidth,barHeight);
+		
+		// direction of motion
+        if (barX >= offsetX+400-barWidth) { 	// too far to the right, move left       
+           delta=-1;
+        } else if (barX <= offsetX) { // too far to the left, move right
+           delta=1;
+        }
+        
+        // draw new bar
+        barX+=delta;
+        drawRect("#FF0000",barX,barY,barWidth,barHeight);
+     }
+
+</script>
+</body>
+</html>
