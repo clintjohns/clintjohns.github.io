@@ -14,6 +14,10 @@
 			h2 {
 			   font-family: customFont;
 			}
+			
+			p {
+			   font-family: customFont;
+			}
 		</style>
 	</head>
 
@@ -21,7 +25,7 @@
 		<h1>CS2: Web Programming</h1>
 		<h2>CSS</h2>
 		<ul>
-			<li><p style="font-size:10px"><a href="customFontExample.html">(add a custom font to a webpage)</a></font></p></li>
+			<li><a href="customFontExample.html">Day 1: add a custom font to a webpage</a></li>
 		</ul>
 		<h2>HTML / Javascript</h2>
 		<ul>
