@@ -1,7 +1,7 @@
 <?php
 
 // iterate through directory, and store results in to an array
-$dir = "/home/johns/html/cs2/mrjohns/";
+$dir = "/";
 $dh  = opendir($dir);
 while (false !== ($filename = readdir($dh))) {
     $files[] = $filename;
