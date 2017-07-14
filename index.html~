@@ -15,7 +15,7 @@
 			   font-family: customFont;
 			}
 			
-			p {
+			a {
 			   font-family: customFont;
 			}
 		</style>
