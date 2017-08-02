@@ -15,7 +15,7 @@
 			   font-family: customFont;
 			}
 			
-			a {
+			p {
 			   font-family: customFont;
 			}
 		</style>
@@ -25,29 +25,31 @@
 		<h1>CS2: Web Programming</h1>
 		<h2>CSS</h2>
 		<ul>
-			<li><a href="customFontExample.html">Day 1: add a custom font to a webpage</a></li>
+			<li>Day 1: <p><a href="customFontExample.html">add a custom font to a
+			webpage</a></p></li>
 		</ul>
 		<h2>HTML / Javascript</h2>
 		<ul>
-			<li><a href="myfirstwebpage.html">Day 1: introduction to html</a></li>
-			<li><a href="myfirstinteractivewebpage.html">Day 2: introduction to javascript</a></li>
-			<li><a href="hovering.html">Day 3: hovering with onmouseover, onmouseout</a></li>
-			<li><a href="calculator.html">Day 4: textbox fields, input and output</a> | <a href="restaurantBill.html">homework: restaurant bill calculator</a></li>
-			<li><a href="restaurantBill.html">Day 5: continuation of the restaurant example</a> | <a href="jeopardyDay1.html">Jeopardy / Quiz Bowl</a></li>
-			<li><a href="jeopardyDay2.html">Day 6: Jeopardy - adding interactivity (buttons)</a></li> 
-			<li><a href="jeopardyDay3.html">Day 7: Jeopardy - adding interactivity (input/output)</a></li>
-			<li><a href="jeopardyDay4.html">Day 8: Jeopardy - adding interactivity (testing responses)</a> | <a href="soundExample.html">play a sound using javascript</a></li>
-			<li><a href="jeopardyDay5.html">Day 9: Jeopardy - adding / substracting points to a player</a></li>
-			<li><a href="keyboardInput1.html">Day 10: Keyboard interactions, setting boundaries</a></li>
-			<li><a href="keyboardInput2.html">Day 11: Creating a menu of choices</a> | <a href="keyboardInput3.html">possible solution</a></li>
-			<li><a href="mouseMotion.html">Day 12: Mouse interactions, colliding objects</a> | <a href="mouseMotion2.html">possible solution</a> | <a href="mouseMotion3.html">improved solution (show collision region)</a></li>
+			<li>Day 1: <a href="myfirstwebpage.html">introduction to html</a></li>
+			<li>Day 2: <a href="myfirstinteractivewebpage.html">introduction to javascript</a></li>
+			<li>Day 3: <a href="hovering.html">hovering with onmouseover, onmouseout</a></li>
+			<li>Day 4: <a href="calculator.html">textbox fields, input and output</a> | <a href="restaurantBill.html">homework: restaurant bill calculator</a></li>
+			<li>Day 5: <a href="restaurantBill.html">continuation of the restaurant example</a> | <a href="jeopardyDay1.html">Jeopardy / Quiz Bowl</a></li>
+			<li>Day 6: <a href="jeopardyDay2.html">Jeopardy - adding interactivity (buttons)</a></li> 
+			<li>Day 7: <a href="jeopardyDay3.html">Jeopardy - adding interactivity (input/output)</a></li>
+			<li>Day 8: <a href="jeopardyDay4.html">Jeopardy - adding interactivity (testing responses)</a> | <a href="soundExample.html">play a sound using javascript</a></li>
+			<li>Day 9: <a href="jeopardyDay5.html">Jeopardy - adding / substracting points to a player</a></li>
+			<li>Day 10: <a href="keyboardInput1.html">Keyboard interactions, setting boundaries</a></li>
+			<li>Day 11: <a href="keyboardInput2.html">Creating a menu of choices</a> | <a href="keyboardInput3.html">possible solution</a></li>
+			<li>Day 12: <a href="mouseMotion.html">Mouse interactions, colliding objects</a> | <a href="mouseMotion2.html">possible solution</a> | <a href="mouseMotion3.html">improved solution (show collision region)</a></li>
 			<li>Day 13: <a href="myGame.html">how to draw & add images</a></li>
-			<li>Day 14: feature requests: <a href="gameBoard.html">background border</a> | <a href="imageRotation.html">image rotation</a> | <a href="motion.html">image motion</a> | <a href="motion2.html">image motion (advanced)</a> | <a href="meter.html">meter</a></li> 
+			<li>Day 14: <a
+			href="gameBoard.html">background border</a> | <a href="imageRotation.html">image rotation</a> | <a href="motion.html">image motion</a> | <a href="motion2.html">image motion (advanced)</a> | <a href="meter.html">meter</a></li> 
 			<li>Day 15: <a href="jumpAnimation.html">jump animation</a></li>
 		</ul>
 		<h2>PHP</h2>
 		<ul>
-			<li>Day 1: Introduction to <a href="www.php.net">PHP</a>: <a href="example.php">variables, output, loops</a> <i>Note: viewing the source code on a web browser will not allow you to see the php code. You must download the file from /html/cs2/mrjohns/ to view it properly</i></li>
+			<li>Day 1: <a href="www.php.net">introduction to PHP</a>: <a href="example.php">variables, output, loops</a> <i>Note: viewing the source code on a web browser will not allow you to see the php code. You must download the file from /html/cs2/mrjohns/ to view it properly</i></li>
 			<li>Day 2: <a href="thingsILike.php">Conditional looping, randomization, embedded html formatting</a></li>
 			<li>Day 3: <a href="myfirstform.php">Forms & how they work</a> | <a href="hilow.php">Hi-Low Number Guessing Game</a></li>
 			<li>Day 4: <a href="hilow.php">Hi-Low Number Guessing Game: Adding Turns</a> | <a href="hilow2.php">Hi-Low Number Guessing Game: game over scenario</a></li>
